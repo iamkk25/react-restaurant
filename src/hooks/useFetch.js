@@ -25,12 +25,15 @@ export default function useFetch(errMsg,) {
                 setIsFetching(false);
             }
         }
-        fetchMeals();
+
+        if (data.length !== 0) {
+            fetchMeals();
+        }
 
         return () => {
             controller.abort();
         };
-    }, [errMsg]);
+    }, [errMsg, data.length]);
 
     return { data, isFetching, error }
 }
