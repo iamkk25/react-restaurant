@@ -3,7 +3,7 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	min-width: 30rem;
+	width: min(80%, 30rem);
 	margin-inline: auto;
 	border: none;
 	border-radius: 10px;
