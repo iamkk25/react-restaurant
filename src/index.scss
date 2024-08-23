@@ -11,6 +11,9 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+
+	$color-primary: #ff5f3b;
+	--color-primary: $color-primary;
 }
 
 *,
@@ -19,6 +22,10 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+}
+
+body {
+	background-color: antiquewhite;
 }
 
 button {

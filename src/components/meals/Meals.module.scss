@@ -1,3 +1,61 @@
-// .meals{
-//     display: grid;
-// }
+.meals {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1rem;
+	width: 90%;
+	margin: 1rem auto;
+}
+
+.meal {
+	&-card {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem;
+		border-radius: 30px;
+		background-color: white;
+		box-shadow: 0 0 2px rgba($color: #000000, $alpha: 0.2);
+	}
+
+	&-img {
+		align-self: center;
+		flex-basis: 40%;
+		> img {
+			width: 100%;
+			border-radius: 20px;
+		}
+	}
+	&-details {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		flex-basis: 60%;
+	}
+	&-description {
+		height: 50px;
+		// white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		&.toggle-text {
+			height: auto;
+			overflow: initial;
+			white-space: initial;
+		}
+	}
+	&-payment {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		justify-self: end;
+
+		& > h3 {
+			font-size: 1.4rem;
+			color: #ff5f3b;
+		}
+
+		& > button {
+			border-radius: 20px;
+		}
+	}
+}

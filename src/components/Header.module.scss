@@ -18,7 +18,7 @@ header {
 
 	& h1 {
 		font-size: clamp(1.5rem, 4vw, 3rem);
-		color: rgb(189, 7, 182);
+		color: #d43511;
 		// background: radial-gradient(
 		// 	circle,
 		// 	rgba(189, 7, 182, 1) 0%,
@@ -30,11 +30,11 @@ header {
 	}
 
 	& .cart-btn {
-		background-color: #9759c3;
+		background-color: #ff5f3b;
 		// transition: background-color 200ms;
 
 		&:hover {
-			background-color: darken(#9759c3, 10);
+			background-color: darken(#ff5f3b, 10);
 		}
 	}
 

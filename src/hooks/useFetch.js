@@ -26,7 +26,7 @@ export default function useFetch(errMsg,) {
             }
         }
 
-        if (data.length !== 0) {
+        if (data.length === 0) {
             fetchMeals();
         }
 
@@ -35,5 +35,5 @@ export default function useFetch(errMsg,) {
         };
     }, [errMsg, data.length]);
 
-    return { data, isFetching, error }
+    return { data, isFetching, error, setError }
 }
