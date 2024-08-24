@@ -1,24 +1,20 @@
 import Modal from "../UI/Modal";
 import Error from "../Error";
 
-// import useFetch from "../../hooks/useFetch";
-
 import styles from "./Meals.module.scss";
 import { useMealsContext } from "../../store/mealsStore";
+import MealItem from "./MealItem";
 function Meals() {
 	// const {
-	// 	data: meals,
-	// 	isFetching,
+	// 	mealsData: meals,
 	// 	error,
-	// 	setError,
-	// } = useFetch("Failed to get meals data!🍽️");
+	// 	isLoading: isFetching,
+	// 	updateError,
+	// } = useMealsContext();
 
-	const {
-		mealsData: meals,
-		error,
-		isLoading: isFetching,
-		updateError,
-	} = useMealsContext();
+	const meals = [],
+		error = "",
+		isFetching = false;
 
 	console.log({ meals, isFetching, error });
 
@@ -42,26 +38,23 @@ function Meals() {
 
 	return (
 		<div className={styles.meals}>
-			{meals.map((meal) => {
-				return (
-					<div className={styles.mealCard} key={meal.id}>
-						<div className={styles.mealImg}>
-							<img
-								src={`http://localhost:3000/${meal.image}`}
-								alt={meal.name}
-							/>
-						</div>
-						<div className={styles.mealDetails}>
-							<h2 className={styles.mealTitle}>{meal.name}</h2>
-							<p className={styles.mealDescription}>{meal.description}</p>
-							<div className={styles.mealPayment}>
-								<h3 className={styles.mealPrice}>${meal.price}</h3>
-								<button>Add to cart</button>
-							</div>
-						</div>
-					</div>
-				);
-			})}
+			{isFetching && <p>Fetching available meals...</p>}
+			{(!isFetching || (!error && meals.length === 0)) && (
+				<p>No meals available.</p>
+			)}
+			{!isFetching &&
+				!error &&
+				meals.map((meal) => {
+					return (
+						<MealItem
+							key={meal.id}
+							name={meal.name}
+							image={meal.image}
+							price={meal.price}
+							description={meal.description}
+						/>
+					);
+				})}
 		</div>
 	);
 }
