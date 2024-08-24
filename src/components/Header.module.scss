@@ -19,22 +19,20 @@ header {
 	& h1 {
 		font-size: clamp(1.5rem, 4vw, 3rem);
 		color: #d43511;
-		// background: radial-gradient(
-		// 	circle,
-		// 	rgba(189, 7, 182, 1) 0%,
-		// 	rgba(127, 10, 199, 1) 56%,
-		// 	rgba(175, 0, 255, 1) 100%
-		// 	);
-		// background-clip: text;
-		// color: transparent;
 	}
 
 	& .cart-btn {
+		padding: 1rem 1.5rem;
+		font-weight: 600;
 		background-color: #ff5f3b;
-		// transition: background-color 200ms;
+		transition: background-color 200ms;
 
 		&:hover {
 			background-color: darken(#ff5f3b, 10);
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 5px rgba($color: #ff5f3b, $alpha: 0.2);
 		}
 	}
 

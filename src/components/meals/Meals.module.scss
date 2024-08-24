@@ -1,60 +1,54 @@
 .meals {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	gap: 1rem;
 	width: 90%;
 	margin: 1rem auto;
+	font-size: 14px;
+
+	@media screen and (width>=400px) {
+		font-size: 1rem;
+	}
 }
 
 .meal {
 	&-card {
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 		gap: 1rem;
 		padding: 1rem;
 		border-radius: 30px;
 		background-color: white;
-		box-shadow: 0 0 2px rgba($color: #000000, $alpha: 0.2);
+		box-shadow: 0 0 2px rgba($color: #ff5f3b, $alpha: 0.7);
 	}
 
 	&-img {
-		align-self: center;
-		flex-basis: 40%;
-		> img {
+		img {
 			width: 100%;
+			height: 100%;
 			border-radius: 20px;
+			object-fit: cover;
 		}
 	}
 	&-details {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		flex-basis: 60%;
-	}
-	&-description {
-		height: 50px;
-		// white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-
-		&.toggle-text {
-			height: auto;
-			overflow: initial;
-			white-space: initial;
-		}
+		display: grid;
+		grid-template-rows: repeat(2, max-content) 1fr;
+		gap: 1rem;
 	}
 	&-payment {
+		align-self: flex-end;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		justify-self: end;
+		margin-top: auto;
 
 		& > h3 {
-			font-size: 1.4rem;
-			color: #ff5f3b;
+			font-size: 1.6rem;
+			color: #cf4729;
 		}
 
 		& > button {
+			font-weight: 600;
 			border-radius: 20px;
 		}
 	}
