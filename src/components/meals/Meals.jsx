@@ -1,24 +1,29 @@
 import Modal from "../UI/Modal";
 import Error from "../Error";
 
-import useFetch from "../../hooks/useFetch";
+// import useFetch from "../../hooks/useFetch";
 
 import styles from "./Meals.module.scss";
-import { useState } from "react";
-
+import { useMealsContext } from "../../store/mealsStore";
 function Meals() {
-	const [toggle, setToggle] = useState(false);
+	// const {
+	// 	data: meals,
+	// 	isFetching,
+	// 	error,
+	// 	setError,
+	// } = useFetch("Failed to get meals data!🍽️");
+
 	const {
-		data: meals,
-		isFetching,
+		mealsData: meals,
 		error,
-		setError,
-	} = useFetch("Failed to get meals data!🍽️");
+		isLoading: isFetching,
+		updateError,
+	} = useMealsContext();
 
 	console.log({ meals, isFetching, error });
 
 	function handleClose() {
-		setError(null);
+		updateError();
 	}
 
 	if (error) {
@@ -48,14 +53,7 @@ function Meals() {
 						</div>
 						<div className={styles.mealDetails}>
 							<h2 className={styles.mealTitle}>{meal.name}</h2>
-							<p
-								className={`${styles.mealDescription} ${
-									toggle ? styles.toggleText : null
-								}`.trim()}
-								onClick={() => setToggle(!toggle)}
-							>
-								{meal.description}
-							</p>
+							<p className={styles.mealDescription}>{meal.description}</p>
 							<div className={styles.mealPayment}>
 								<h3 className={styles.mealPrice}>${meal.price}</h3>
 								<button>Add to cart</button>
