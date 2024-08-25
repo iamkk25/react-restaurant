@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useReducer, useEffect, useContext } from "react";
 import { getMeals } from "../http/https";
@@ -8,10 +9,18 @@ const defaultMealsData = {
 	isLoading: false,
 };
 
-const defaultValue = {
+const defaultCartData = {
 	cartData: [],
-	updateError: () => {},
+	totalPrice: 0,
+	cartLength: 0,
+};
+
+const defaultValue = {
 	...defaultMealsData,
+	updateError: (errMsg) => {},
+	...defaultCartData,
+	addMealToCart: (mealData) => {},
+	updateCartData: (id, counter) => {},
 };
 
 const ACTIONS = Object.freeze({
@@ -19,21 +28,100 @@ const ACTIONS = Object.freeze({
 	loadingData: Symbol("loading-data"),
 	updateError: Symbol("update-error"),
 	addToCart: Symbol("add-to-cart"),
+	updateCartData: Symbol("update-cart-data"),
 });
 
 export const MealsStore = createContext(defaultValue);
 
 function mealsReducer(state, action) {
-	switch (action.type) {
+	const { type, payload } = action;
+	switch (type) {
 		case ACTIONS.getMeals:
 			return {
 				...state,
-				mealsData: [...state.mealsData, ...action.payload.meals],
+				mealsData: [...state.mealsData, ...payload.meals],
 			};
 		case ACTIONS.updateError:
-			return { ...state, error: action.payload.error };
+			return { ...state, error: payload.error };
 		case ACTIONS.loadingData:
-			return { ...state, isLoading: action.payload.loading };
+			return { ...state, isLoading: payload.loading };
+		default:
+			return state;
+	}
+}
+
+function cartReducer(state, action) {
+	const { type, payload } = action;
+	switch (type) {
+		case ACTIONS.addToCart: {
+			const existingCartItemIndex = state.cartData.findIndex(
+				(cart) => cart.id === payload.mealItem.id
+			);
+			const prevCartState = {
+				...state,
+				cartData: [...state.cartData],
+			};
+
+			if (existingCartItemIndex === -1) {
+				prevCartState.cartData.push({ ...payload.mealItem, count: 1 });
+				console.log(prevCartState);
+			} else {
+				prevCartState.cartData = prevCartState.cartData.map((cart) =>
+					cart.id === payload.mealItem.id
+						? { ...cart, count: cart.count + 1 }
+						: cart
+				);
+				console.log(prevCartState);
+			}
+			prevCartState.totalPrice = prevCartState.cartData.reduce(
+				(prevValue, currItem) => {
+					return +(prevValue + currItem.price * currItem.count);
+				},
+				0
+			);
+
+			prevCartState.cartLength = prevCartState.cartData.reduce(
+				(prevValue, currItem) => {
+					return +(prevValue + currItem.count);
+				},
+				0
+			);
+			return prevCartState;
+		}
+		case ACTIONS.updateCartData: {
+			// const existingCartItemIndex = state.cartData.findIndex(
+			// 	(cart) => cart.id === payload.id
+			// );
+			// if (existingCartItemIndex === -1) {
+			// 	return {
+			// 		...state,
+			// 		cartData: [
+			// 			...state.cartData,
+			// 			{ ...payload.mealItem, count: 1 },
+			// 		],
+			// 	};
+			// } else {
+			// 	return {
+			// 		...state,
+			// 		cartData: state.cartData.map((cart, _, cartArr) =>
+			// 			cart.id === cartArr[existingCartItemIndex].id
+			// 				? { ...cart, count: cart.count + 1 }
+			// 				: cart
+			// 		),
+			// 	};
+			// }
+
+			return {
+				...state,
+				cartData: state.cartData
+					.map((cart) => {
+						if (cart.id === payload.id)
+							return { ...cart, count: cart.count + payload.count };
+						return cart;
+					})
+					.filter((cart) => cart.count !== 0),
+			};
+		}
 		default:
 			return state;
 	}
@@ -44,6 +132,8 @@ export default function MealsProvider({ children }) {
 		mealsReducer,
 		defaultMealsData
 	);
+
+	const [cartState, cartDispatch] = useReducer(cartReducer, defaultCartData);
 
 	useEffect(() => {
 		const controller = new AbortController();
@@ -84,7 +174,29 @@ export default function MealsProvider({ children }) {
 		mealsDispatch({ type: ACTIONS.updateError, payload: { error: errMsg } });
 	}
 
-	const providerValue = { ...mealsState, updateError };
+	function addMealToCart(mealData) {
+		cartDispatch({
+			type: ACTIONS.addToCart,
+			payload: { mealItem: { ...mealData } },
+		});
+	}
+
+	function updateCartItem(id, counter) {
+		cartDispatch({
+			type: ACTIONS.updateCartData,
+			payload: { id, count: counter },
+		});
+	}
+
+	const providerValue = {
+		...mealsState,
+		updateError,
+		...cartState,
+		addMealToCart,
+		updateCartItem,
+	};
+
+	console.log(providerValue);
 
 	return (
 		<MealsStore.Provider value={providerValue}>{children}</MealsStore.Provider>

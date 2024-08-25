@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
+import { useMealsContext } from "../../store/mealsStore";
 import styles from "./MealItem.module.scss";
 
-function MealItem({ name, image, description, price, onClick }) {
+function MealItem({ id, name, image, description, price }) {
+	const { addMealToCart } = useMealsContext();
+
 	return (
 		<div className={styles.mealCard}>
 			<div className={styles.mealImg}>
@@ -12,7 +15,9 @@ function MealItem({ name, image, description, price, onClick }) {
 				<p className={styles.mealDescription}>{description}</p>
 				<div className={styles.mealPayment}>
 					<h3 className={styles.mealPrice}>${price}</h3>
-					<button onClick={onClick}>Add to cart</button>
+					<button onClick={() => addMealToCart({ id, name, image, price })}>
+						Add to cart
+					</button>
 				</div>
 			</div>
 		</div>

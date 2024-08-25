@@ -5,16 +5,12 @@ import styles from "./Meals.module.scss";
 import { useMealsContext } from "../../store/mealsStore";
 import MealItem from "./MealItem";
 function Meals() {
-	// const {
-	// 	mealsData: meals,
-	// 	error,
-	// 	isLoading: isFetching,
-	// 	updateError,
-	// } = useMealsContext();
-
-	const meals = [],
-		error = "",
-		isFetching = false;
+	const {
+		mealsData: meals,
+		error,
+		isLoading: isFetching,
+		updateError,
+	} = useMealsContext();
 
 	console.log({ meals, isFetching, error });
 
@@ -38,22 +34,16 @@ function Meals() {
 
 	return (
 		<div className={styles.meals}>
-			{isFetching && <p>Fetching available meals...</p>}
-			{(!isFetching || (!error && meals.length === 0)) && (
-				<p>No meals available.</p>
+			{isFetching && (
+				<p className={styles.feedback}>Fetching available meals...</p>
+			)}
+			{(!isFetching || !error) && meals.length === 0 && (
+				<p className={styles.feedback}>No meals available.</p>
 			)}
 			{!isFetching &&
 				!error &&
 				meals.map((meal) => {
-					return (
-						<MealItem
-							key={meal.id}
-							name={meal.name}
-							image={meal.image}
-							price={meal.price}
-							description={meal.description}
-						/>
-					);
+					return <MealItem key={meal.id} {...meal} />;
 				})}
 		</div>
 	);
