@@ -1,10 +1,10 @@
 import Cart from "./components/Cart/Cart";
 import Header from "./components/Header";
 import Meals from "./components/meals/Meals";
-import { useMealsContext } from "./store/mealsStore";
+import { useRestaurantContext } from "./store/restaurant";
 
 function App() {
-	const { isCartOpened } = useMealsContext();
+	const { isCartOpened } = useRestaurantContext();
 
 	return (
 		<>

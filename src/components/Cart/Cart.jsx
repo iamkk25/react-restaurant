@@ -1,4 +1,4 @@
-import { useMealsContext } from "../../store/mealsStore";
+import { useRestaurantContext } from "../../store/restaurant";
 import Modal from "../UI/Modal";
 
 import styles from "./Cart.module.scss";
@@ -11,7 +11,7 @@ function Cart() {
 		cartLength,
 		handleCloseCart,
 		updateCartData,
-	} = useMealsContext();
+	} = useRestaurantContext();
 
 	return (
 		<Modal open={isCartOpened} onClose={handleCloseCart}>

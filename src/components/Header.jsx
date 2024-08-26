@@ -1,10 +1,10 @@
-import { useMealsContext } from "../store/mealsStore";
+import { useRestaurantContext } from "../store/restaurant";
 import styles from "./Header.module.scss";
 
 import appLogo from "/logo.jpg";
 
 function Header() {
-	const { cartLength, handleOpenCart } = useMealsContext();
+	const { cartLength, handleOpenCart } = useRestaurantContext();
 	return (
 		<header>
 			<div className={styles.title}>

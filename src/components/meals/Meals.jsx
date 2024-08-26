@@ -2,7 +2,7 @@ import Modal from "../UI/Modal";
 import Error from "../Error";
 
 import styles from "./Meals.module.scss";
-import { useMealsContext } from "../../store/mealsStore";
+import { useRestaurantContext } from "../../store/restaurant";
 import MealItem from "./MealItem";
 function Meals() {
 	const {
@@ -10,7 +10,7 @@ function Meals() {
 		error,
 		isLoading: isFetching,
 		updateError,
-	} = useMealsContext();
+	} = useRestaurantContext();
 
 	function handleClose() {
 		updateError();

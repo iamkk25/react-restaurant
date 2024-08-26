@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useMealsContext } from "../../store/mealsStore";
+import { useRestaurantContext } from "../../store/restaurant";
 import styles from "./MealItem.module.scss";
 
 function MealItem({ id, name, image, description, price }) {
-	const { addMealToCart } = useMealsContext();
+	const { addMealToCart } = useRestaurantContext();
 
 	return (
 		<div className={styles.mealCard}>

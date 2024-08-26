@@ -2,12 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.scss";
-import MealsProvider from "./store/mealsStore";
+import RestaurantProvider from "./store/restaurant.jsx";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>
-		<MealsProvider>
+		<RestaurantProvider>
 			<App />
-		</MealsProvider>
+		</RestaurantProvider>
 	</StrictMode>
 );
