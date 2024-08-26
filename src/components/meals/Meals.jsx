@@ -12,8 +12,6 @@ function Meals() {
 		updateError,
 	} = useMealsContext();
 
-	console.log({ meals, isFetching, error });
-
 	function handleClose() {
 		updateError();
 	}
@@ -37,7 +35,7 @@ function Meals() {
 			{isFetching && (
 				<p className={styles.feedback}>Fetching available meals...</p>
 			)}
-			{(!isFetching || !error) && meals.length === 0 && (
+			{!isFetching && meals.length === 0 && (
 				<p className={styles.feedback}>No meals available.</p>
 			)}
 			{!isFetching &&

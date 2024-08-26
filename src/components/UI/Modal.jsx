@@ -7,15 +7,30 @@ function Modal({ open, children, onClose }) {
 	const dialogRef = useRef(null);
 
 	useEffect(() => {
+		const dialog = dialogRef.current;
 		if (open) {
-			dialogRef.current.showModal();
+			dialog.showModal();
+			document.body.classList.add(styles.noScroll);
 		} else {
-			dialogRef.current.close();
+			dialog.close();
+			document.body.classList.remove(styles.noScroll);
 		}
+
+		return () => {
+			dialog.close();
+			console.log("modal closing");
+			document.body.classList.remove(styles.noScroll);
+		};
 	}, [open]);
 
 	const modal = (
-		<dialog className={styles.modal} ref={dialogRef} onClose={onClose}>
+		<dialog
+			className={styles.modal}
+			ref={dialogRef}
+			onClose={() => {
+				onClose();
+			}}
+		>
 			{open ? children : null}
 		</dialog>
 	);

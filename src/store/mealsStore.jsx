@@ -1,6 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { createContext, useReducer, useEffect, useContext } from "react";
+import {
+	createContext,
+	useReducer,
+	useEffect,
+	useContext,
+	useState,
+} from "react";
 import { getMeals } from "../http/https";
 
 const defaultMealsData = {
@@ -13,6 +19,7 @@ const defaultCartData = {
 	cartData: [],
 	totalPrice: 0,
 	cartLength: 0,
+	isCartOpened: false,
 };
 
 const defaultValue = {
@@ -21,6 +28,8 @@ const defaultValue = {
 	...defaultCartData,
 	addMealToCart: (mealData) => {},
 	updateCartData: (id, counter) => {},
+	handleOpenCart: () => {},
+	handleCloseCart: () => {},
 };
 
 const ACTIONS = Object.freeze({
@@ -135,6 +144,8 @@ export default function MealsProvider({ children }) {
 
 	const [cartState, cartDispatch] = useReducer(cartReducer, defaultCartData);
 
+	const [isCartOpened, setIsCartOpened] = useState(false);
+
 	useEffect(() => {
 		const controller = new AbortController();
 		async function fetchMeals() {
@@ -144,9 +155,8 @@ export default function MealsProvider({ children }) {
 					signal: controller.signal,
 				});
 				mealsDispatch({ type: ACTIONS.getMeals, payload: { meals: data } });
-				mealsDispatch({ type: ACTIONS.updateError, payload: { error: "" } });
+				mealsDispatch({ type: ACTIONS.updateError, payload: { error: null } });
 			} catch (err) {
-				console.log(err.name);
 				if (err.name !== "AbortError") {
 					mealsDispatch({
 						type: ACTIONS.updateError,
@@ -181,11 +191,20 @@ export default function MealsProvider({ children }) {
 		});
 	}
 
-	function updateCartItem(id, counter) {
+	function updateCartData(id, counter) {
+		console.log("clicking");
 		cartDispatch({
 			type: ACTIONS.updateCartData,
 			payload: { id, count: counter },
 		});
+	}
+
+	function handleOpenCart() {
+		setIsCartOpened(true);
+	}
+
+	function handleCloseCart() {
+		setIsCartOpened(false);
 	}
 
 	const providerValue = {
@@ -193,10 +212,11 @@ export default function MealsProvider({ children }) {
 		updateError,
 		...cartState,
 		addMealToCart,
-		updateCartItem,
+		updateCartData,
+		isCartOpened,
+		handleOpenCart,
+		handleCloseCart,
 	};
-
-	console.log(providerValue);
 
 	return (
 		<MealsStore.Provider value={providerValue}>{children}</MealsStore.Provider>
