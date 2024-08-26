@@ -12,6 +12,7 @@
 
 	@media screen and (width>=450px) {
 		width: min(80%, 30rem);
+		margin-inline: initial;
 	}
 
 	&::backdrop {

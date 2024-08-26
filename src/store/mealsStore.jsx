@@ -120,16 +120,35 @@ function cartReducer(state, action) {
 			// 	};
 			// }
 
-			return {
-				...state,
-				cartData: state.cartData
-					.map((cart) => {
-						if (cart.id === payload.id)
-							return { ...cart, count: cart.count + payload.count };
-						return cart;
-					})
-					.filter((cart) => cart.count !== 0),
-			};
+			const prevCartState = { ...state, cartData: [...state.cartData] };
+			const existingCartItemIndex = prevCartState.cartData.findIndex(
+				(cart) => cart.id === payload.id
+			);
+
+			if (existingCartItemIndex === -1) {
+				return prevCartState;
+			}
+
+			prevCartState.cartData = prevCartState.cartData
+				.map((cart) => {
+					if (cart.id === payload.id)
+						return { ...cart, count: cart.count + payload.count };
+					return cart;
+				})
+				.filter((cart) => cart.count !== 0);
+
+			prevCartState.cartLength = prevCartState.cartData.reduce(
+				(prevLength, currItem) => +(prevLength + currItem.count),
+				0
+			);
+			prevCartState.totalPrice = prevCartState.cartData.reduce(
+				(prevPrice, currItem) => {
+					return +(prevPrice + currItem.price * currItem.count);
+				},
+				0
+			);
+
+			return prevCartState;
 		}
 		default:
 			return state;
@@ -211,6 +230,7 @@ export default function MealsProvider({ children }) {
 		...mealsState,
 		updateError,
 		...cartState,
+		totalPrice: parseFloat(cartState.totalPrice).toFixed(2),
 		addMealToCart,
 		updateCartData,
 		isCartOpened,

@@ -1,27 +1,33 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import styles from "./Modal.module.scss";
 
 function Modal({ open, children, onClose }) {
+	const [modalIsActive, setModalIsActive] = useState(false);
 	const dialogRef = useRef(null);
 
 	useEffect(() => {
 		const dialog = dialogRef.current;
 		if (open) {
 			dialog.showModal();
-			document.body.classList.add(styles.noScroll);
+			setModalIsActive(true);
 		} else {
 			dialog.close();
+			setModalIsActive(false);
+		}
+	}, [open]);
+
+	useEffect(() => {
+		if (modalIsActive) {
+			document.body.classList.add(styles.noScroll);
+		} else {
 			document.body.classList.remove(styles.noScroll);
 		}
-
 		return () => {
-			dialog.close();
-			console.log("modal closing");
 			document.body.classList.remove(styles.noScroll);
 		};
-	}, [open]);
+	}, [modalIsActive]);
 
 	const modal = (
 		<dialog

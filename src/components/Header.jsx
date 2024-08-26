@@ -4,7 +4,7 @@ import styles from "./Header.module.scss";
 import appLogo from "/logo.jpg";
 
 function Header() {
-	const { handleOpenCart } = useMealsContext();
+	const { cartLength, handleOpenCart } = useMealsContext();
 	return (
 		<header>
 			<div className={styles.title}>
@@ -13,7 +13,7 @@ function Header() {
 			</div>
 			<nav>
 				<button className={styles.cartBtn} onClick={handleOpenCart}>
-					Cart (0)
+					Cart ({cartLength})
 				</button>
 			</nav>
 		</header>
