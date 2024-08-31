@@ -33,7 +33,7 @@ export function useRestaurantContext() {
 	const mealsContext = useContext(RestaurantContext);
 	if (mealsContext === undefined) {
 		throw new Error(
-			"useRestaurantContext must be used within a <RestaurantProvider/> "
+			"useRestaurantContext must be used within a <RestaurantProvider /> "
 		);
 	}
 

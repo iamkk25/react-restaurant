@@ -23,7 +23,6 @@ function cartReducer(state, action) {
 				...state,
 				cartData: [...state.cartData],
 			};
-
 			if (existingCartItemIndex === -1) {
 				prevCartState.cartData.push({ ...payload.mealItem, count: 1 });
 				console.log(prevCartState);
