@@ -3,6 +3,8 @@ import Modal from "../UI/Modal";
 
 import styles from "./Cart.module.scss";
 import CartItem from "./CartItem.jsx";
+import {useState} from "react";
+import UserDetailsForm from "../UserDetailsForm.jsx";
 
 function Cart() {
 	const {
@@ -13,9 +15,12 @@ function Cart() {
 		handleCloseCart,
 	} = useRestaurantContext();
 
+	const [formIsActive,setFormIsActive] = useState(false);
+
 	return (
 		<Modal open={isCartOpened} onClose={handleCloseCart}>
-			<div className={styles.cart}>
+			{formIsActive && <UserDetailsForm onClose={()=>setFormIsActive(false)} />}
+			{!formIsActive && (<div className={styles.cart}>
 				<h2>
 					Cart<sup>({cartLength})</sup>
 				</h2>
@@ -35,10 +40,10 @@ function Cart() {
 						<button onClick={() => handleCloseCart()} className={styles.flat}>
 							Close
 						</button>
-						{cartData.length !== 0 && <button>Order now</button>}
+						{cartData.length !== 0 && <button onClick={()=>setFormIsActive(true)}>Order now</button>}
 					</div>
 				</div>
-			</div>
+			</div>)}
 		</Modal>
 	);
 }

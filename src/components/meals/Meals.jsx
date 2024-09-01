@@ -1,5 +1,5 @@
 import Modal from "../UI/Modal";
-import Error from "../Error";
+import Error from "../UI/Error.jsx";
 
 import styles from "./Meals.module.scss";
 import { useRestaurantContext } from "../../store/restaurant";

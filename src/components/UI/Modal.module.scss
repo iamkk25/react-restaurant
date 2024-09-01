@@ -2,9 +2,10 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -60%);
+	transform: translate(-50%, -50%);
 	width: 95%;
 	margin-inline: auto;
+	overflow: hidden;
 	border: none;
 	border-radius: 10px;
 	background-color: transparent;
@@ -40,6 +41,7 @@
 @keyframes fade-slide-down {
 	from{
 		opacity: 0;
+		transform: translate(-50%,-60%);
 	}
 
 	to{

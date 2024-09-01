@@ -37,9 +37,6 @@
     }
   }
   &-counter {
-    &__wrapper {
-      margin-left: auto;
-    }
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,6 +46,10 @@
     border-radius: 20px;
     transform-origin: right;
     scale: 0.8;
+
+    &__wrapper {
+      margin-left: auto;
+    }
 
     button {
       width: 35px;
