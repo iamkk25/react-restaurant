@@ -10,10 +10,12 @@
 	border-radius: 10px;
 	background-color: transparent;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-	animation: fade-slide-down ease 250ms 1 forwards;
+	//will-change: translate, opacity;
+	//animation: fade-slide-down ease 250ms 1 forwards;
+	//backface-visibility: hidden;
 
 	@media screen and (width>=450px) {
-		width: min(80%, 30rem);
+		width: min(80%, 40rem);
 		margin-inline: initial;
 	}
 
@@ -41,11 +43,11 @@
 @keyframes fade-slide-down {
 	from{
 		opacity: 0;
-		transform: translate(-50%,-60%);
+		translate: 0 -10%;
 	}
 
 	to{
 		opacity: 1;
-		transform: translate(-50%,-50%);
+		translate: 0;
 	}
 }

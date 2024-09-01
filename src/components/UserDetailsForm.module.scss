@@ -4,13 +4,14 @@
   animation: slide-left 250ms 1 forwards;
 }
 
+.input-field{
+
+}
+
 @keyframes slide-left {
-  from{
+  from {
     opacity: 0;
     translate: 50% 0;
-  }
-  50%{
-    opacity: 0;
   }
   to{
     opacity: 1;
