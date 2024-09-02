@@ -4,7 +4,7 @@ import {
 } from "react";
 
 import { getMeals } from "../http/https";
-import { ACTIONS } from "../actions";
+import { ACTIONS } from "../utils/actions.js";
 
 export const defaultMealsData = {
 	mealsData: [],

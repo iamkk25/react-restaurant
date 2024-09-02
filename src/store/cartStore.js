@@ -1,7 +1,7 @@
 import { useState, useReducer } from "react";
 
 import { createContext } from "react";
-import { ACTIONS } from "../actions";
+import { ACTIONS } from "../utils/actions.js";
 
 export const defaultCartData = {
 	cartData: [],

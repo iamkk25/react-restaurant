@@ -1,5 +1,6 @@
 import styles from './UserDetailsForm.module.scss'
 function UserDetailsForm({onClose}) {
+
     return <>
         <form className={styles.userDetailForm}>
             <div className={styles.inputField}>
