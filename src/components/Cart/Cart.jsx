@@ -40,7 +40,7 @@ function Cart() {
 						<button onClick={() => handleCloseCart()} className={styles.flat}>
 							Close
 						</button>
-						{cartData.length !== 0 && <button onClick={()=>setFormIsActive(true)}>Order now</button>}
+						{cartData.length !== 0 && <button onClick={()=>setFormIsActive(true)}>Go to Checkout</button>}
 					</div>
 				</div>
 			</div>)}

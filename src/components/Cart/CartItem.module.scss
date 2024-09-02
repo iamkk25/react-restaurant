@@ -46,6 +46,7 @@
     border-radius: 20px;
     transform-origin: right;
     scale: 0.8;
+    backface-visibility: hidden;
 
     &__wrapper {
       margin-left: auto;

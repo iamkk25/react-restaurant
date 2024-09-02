@@ -33,6 +33,7 @@
 	@media screen and (width>=400px) {
 		padding: 1rem;
 		font-size: 1rem;
+		backface-visibility: hidden;
 	}
 
 	&-list {

@@ -7,7 +7,7 @@ function UserDetailsForm({onClose}) {
                 <input type="text" id="fullname" name="fullname" placeholder="Full Name" required/>
             </div>
             <div className={styles.inputField}>
-                <label htmlFor="emal">Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="test@test.com" required/>
             </div>
             <div className={styles.inputField}>
