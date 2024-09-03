@@ -29,7 +29,7 @@ function mealsReducer(state, action) {
 	}
 }
 
-export function useMeals() {
+export function useMealsStore() {
 	const [mealsState, mealsDispatch] = useReducer(
 		mealsReducer,
 		defaultMealsData

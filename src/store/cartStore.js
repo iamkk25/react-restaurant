@@ -85,7 +85,7 @@ function cartReducer(state, action) {
 	}
 }
 
-export function useCart() {
+export function useCartStore() {
 	const [cartState, cartDispatch] = useReducer(cartReducer, defaultCartData);
 
 	const [isCartOpened, setIsCartOpened] = useState(false);

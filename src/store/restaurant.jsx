@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 import { createContext, useContext } from "react";
 
-import { defaultMealsData, useMeals } from "./mealsStore.js";
-import { defaultCartData, useCart } from "./cartStore.js";
+import {defaultMealsData,  useMealsStore} from "./mealsStore.js";
+import { defaultCartData, useCartStore } from "./cartStore.js";
 
 const defaultValue = {
 	...defaultMealsData,
@@ -18,8 +18,8 @@ const defaultValue = {
 export const RestaurantContext = createContext(defaultValue);
 
 export default function RestaurantProvider({ children }) {
-	const mealsData = useMeals();
-	const cartData = useCart();
+	const mealsData = useMealsStore();
+	const cartData = useCartStore();
 
 	const providerValue = { ...mealsData, ...cartData };
 	return (
