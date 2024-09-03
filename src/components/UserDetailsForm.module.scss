@@ -1,29 +1,10 @@
 .user-detail-form {
   padding: 1rem;
-  background-color: antiquewhite;
+  background-color: #fff6e9;
   animation: slide-left 250ms 1 forwards;
   will-change: translate, opacity;
   backface-visibility: hidden;
 }
-.input-field{
-  margin-bottom: 1rem;
-  label {
-    display: block;
-    width: max-content;
-    color: #a92709;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-  }
-  input{
-    padding: 0.5rem 1rem;
-    border: none;
-    background: white;
-    font-size: 1rem;
-    border-radius: 5px;
-    color: #2b2828;
-  }
-}
-
 @keyframes slide-left {
   from {
     opacity: 0;
