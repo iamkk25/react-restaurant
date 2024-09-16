@@ -5,8 +5,13 @@ import styles from "./Header.module.scss";
 import appLogo from "/logo.jpg";
 
 function Header() {
-	const { cartLength } = useRestaurantContext();
+	const { cartData } = useRestaurantContext();
 	const { handleOpenCart } = useUserProgress();
+
+	const cartLength = cartData.reduce(
+		(totalCartLength, cart) => totalCartLength + cart.count,
+		0
+	);
 	return (
 		<header>
 			<div className={styles.title}>

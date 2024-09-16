@@ -28,12 +28,10 @@ export default function UserProgressContextProvider({ children }) {
 
 	function handleOpenCart() {
 		setProgress("cart");
-		console.log("calling...");
 	}
 
 	function handleOpenCheckout() {
 		setProgress("checkout");
-		console.log("opening checkout...");
 	}
 
 	function handleOpenSummary() {

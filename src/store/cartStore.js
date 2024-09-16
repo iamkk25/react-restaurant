@@ -1,11 +1,8 @@
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import { ACTIONS } from "../utils/actions.js";
 
 export const defaultCartData = {
 	cartData: [],
-	totalPrice: 0,
-	cartLength: 0,
-	isCartOpened: false,
 };
 
 function cartReducer(state, action) {
@@ -29,19 +26,6 @@ function cartReducer(state, action) {
 				);
 				console.log(prevCartState);
 			}
-			prevCartState.totalPrice = prevCartState.cartData.reduce(
-				(prevValue, currItem) => {
-					return +(prevValue + currItem.price * currItem.count);
-				},
-				0
-			);
-
-			prevCartState.cartLength = prevCartState.cartData.reduce(
-				(prevValue, currItem) => {
-					return +(prevValue + currItem.count);
-				},
-				0
-			);
 			return prevCartState;
 		}
 		case ACTIONS.updateCartData: {
@@ -62,17 +46,6 @@ function cartReducer(state, action) {
 				})
 				.filter((cart) => cart.count !== 0);
 
-			prevCartState.cartLength = prevCartState.cartData.reduce(
-				(prevLength, currItem) => +(prevLength + currItem.count),
-				0
-			);
-			prevCartState.totalPrice = prevCartState.cartData.reduce(
-				(prevPrice, currItem) => {
-					return +(prevPrice + currItem.price * currItem.count);
-				},
-				0
-			);
-
 			return prevCartState;
 		}
 		case ACTIONS.resetCart:
@@ -84,8 +57,6 @@ function cartReducer(state, action) {
 
 export function useCartStore() {
 	const [cartState, cartDispatch] = useReducer(cartReducer, defaultCartData);
-
-	const [isCartOpened, setIsCartOpened] = useState(false);
 
 	function addMealToCart(mealData) {
 		cartDispatch({
@@ -105,23 +76,12 @@ export function useCartStore() {
 		cartDispatch({ type: ACTIONS.resetCart })
 	}
 
-	function handleOpenCart() {
-		setIsCartOpened(true);
-	}
-
-	function handleCloseCart() {
-		setIsCartOpened(false);
-	}
 
 
 	return {
 		...cartState,
-		totalPrice: parseFloat(cartState.totalPrice).toFixed(2),
-		isCartOpened,
 		addMealToCart,
 		updateCartData,
-		handleOpenCart,
-		handleCloseCart,
 		resetCart
 	};
 }

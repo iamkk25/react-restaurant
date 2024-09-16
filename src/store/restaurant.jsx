@@ -12,8 +12,6 @@ const defaultValue = {
 	...defaultCartData,
 	addMealToCart: (mealData) => {},
 	updateCartData: (id, counter) => {},
-	handleOpenCart: () => {},
-	handleCloseCart: () => {},
 	resetCart: () => {},
 	order: {
 		data: null,

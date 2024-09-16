@@ -6,14 +6,23 @@ import CartItem from "./CartItem.jsx";
 import { useUserProgress } from "../../store/UserProgressStore.jsx";
 
 function Cart() {
-	const { cartData, totalPrice, cartLength } =
-		useRestaurantContext();
+	const { cartData } = useRestaurantContext();
 
 	const { progress, handleCloseProgress, handleOpenCheckout } =
 		useUserProgress();
 
 	console.log(cartData);
 	console.log(progress);
+
+	const totalPrice = cartData.reduce(
+		(prevTotal, cart) => prevTotal + cart.count * cart.price,
+		0
+	);
+
+	const cartLength = cartData.reduce(
+		(totalCartLength, cart) => totalCartLength + cart.count,
+		0
+	);
 
 	return (
 		<Modal open={progress === "cart"} onClose={handleCloseProgress}>
