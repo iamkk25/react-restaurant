@@ -1,12 +1,16 @@
 export async function sendHttpRequest(url, errorMsg, options) {
-    const response = await fetch(url, options);
+    try{
+        const response = await fetch(url, options);
 
-    if (!response.ok) {
-        throw new Error(errorMsg || 'Failed to fetch data!');
+        if (!response.ok) {
+            throw new Error(errorMsg || 'Failed to fetch data!');
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        throw new Error(error);
     }
-
-    const data = await response.json();
-    return data;
 }
 
 export async function getMeals(errorMsg, options) {
@@ -16,5 +20,14 @@ export async function getMeals(errorMsg, options) {
     } catch (err) {
         // console.error(err)
         throw new Error(errorMsg || err.message)
+    }
+}
+
+export async function postOrder(errMsg, options) {
+    try{
+        const data = await sendHttpRequest('http://localhost:3000/orders',errMsg, { ...options });
+        return data;
+    } catch (err) {
+        throw new Error(errMsg || err.message);
     }
 }

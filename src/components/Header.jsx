@@ -1,10 +1,12 @@
 import { useRestaurantContext } from "../store/restaurant";
+import { useUserProgress } from "../store/UserProgressStore";
 import styles from "./Header.module.scss";
 
 import appLogo from "/logo.jpg";
 
 function Header() {
-	const { cartLength, handleOpenCart } = useRestaurantContext();
+	const { cartLength } = useRestaurantContext();
+	const { handleOpenCart } = useUserProgress();
 	return (
 		<header>
 			<div className={styles.title}>

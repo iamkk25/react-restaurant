@@ -5,7 +5,7 @@
 	transform: translate(-50%, -50%);
 	width: 95%;
 	margin-inline: auto;
-	overflow: hidden;
+	overflow: hidden auto;
 	border: none;
 	border-radius: 10px;
 	background-color: transparent;
@@ -39,12 +39,12 @@
 }
 
 @keyframes fade-slide-down {
-	from{
+	from {
 		opacity: 0;
 		translate: 0 -10%;
 	}
 
-	to{
+	to {
 		opacity: 1;
 		translate: 0;
 	}

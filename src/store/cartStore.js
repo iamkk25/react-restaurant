@@ -1,6 +1,4 @@
 import { useState, useReducer } from "react";
-
-import { createContext } from "react";
 import { ACTIONS } from "../utils/actions.js";
 
 export const defaultCartData = {
@@ -9,8 +7,6 @@ export const defaultCartData = {
 	cartLength: 0,
 	isCartOpened: false,
 };
-
-export const CartContext = createContext(defaultCartData);
 
 function cartReducer(state, action) {
 	const { type, payload } = action;
@@ -25,7 +21,6 @@ function cartReducer(state, action) {
 			};
 			if (existingCartItemIndex === -1) {
 				prevCartState.cartData.push({ ...payload.mealItem, count: 1 });
-				console.log(prevCartState);
 			} else {
 				prevCartState.cartData = prevCartState.cartData.map((cart) =>
 					cart.id === payload.mealItem.id
@@ -80,6 +75,8 @@ function cartReducer(state, action) {
 
 			return prevCartState;
 		}
+		case ACTIONS.resetCart:
+			return defaultCartData;
 		default:
 			return state;
 	}
@@ -104,6 +101,10 @@ export function useCartStore() {
 		});
 	}
 
+	function resetCart() {
+		cartDispatch({ type: ACTIONS.resetCart })
+	}
+
 	function handleOpenCart() {
 		setIsCartOpened(true);
 	}
@@ -111,6 +112,7 @@ export function useCartStore() {
 	function handleCloseCart() {
 		setIsCartOpened(false);
 	}
+
 
 	return {
 		...cartState,
@@ -120,5 +122,6 @@ export function useCartStore() {
 		updateCartData,
 		handleOpenCart,
 		handleCloseCart,
+		resetCart
 	};
 }

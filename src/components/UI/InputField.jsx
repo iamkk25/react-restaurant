@@ -1,30 +1,29 @@
-import {useState} from "react";
 import styles from "./InputField.module.scss";
-import {isEmpty, validateEmail} from "../../utils/validation.js";
+import { useUserDetails } from "../../store/userDetails.jsx";
 
-export default function InputField({id,label,errMsg,...props}) {
-    const [value,setValue] = useState("");
-    const [hasToched, setHasToched] = useState(false);
-    let hasError = hasToched && isEmpty(value);
+export default function InputField({
+	id,
+	label,
+	value,
+	hasError,
+	errMsg,
+	...props
+}) {
+	const { handleInputChange, handleInputBlur } = useUserDetails();
 
-    if(props.type === 'email'){
-        hasError = hasToched && !validateEmail(value);
-    }
+	return (
+		<div className={styles.inputField}>
+            <label htmlFor={id}>{label}</label>
 
-    console.log(value)
-    console.log(hasError)
-
-    function handleChange(e) {
-        setValue(e.target.value);
-    }
-
-    function handleBlur(){
-        setHasToched(true);
-    }
-
-    return <div className={styles.inputField}>
-        <label htmlFor={id}>{label}</label>
-        <input id={id} name={props.name || id} {...props} value={value} onChange={handleChange} onBlur={handleBlur} />
-        {hasError && (<p className={styles.error}>{errMsg}</p>)}
-    </div>
+            <input
+                {...props}
+				id={id}
+				name={props.name || id}
+				value={value}
+				onChange={(e) => props.onChange(e.target.name, e.target.value)}
+				onBlur={(e) => props.onBlur(e.target.name, true)}
+			/>
+            {hasError && <p className={styles.error}>{errMsg}</p>}
+		</div>
+	);
 }

@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
-import { getMeals } from "../http/https";
 
-export default function useFetch(errMsg,) {
+export default function useFetch(url,errMsg,options) {
     const [data, setData] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState("");
 
     useEffect(() => {
         const controller = new AbortController();
-        async function fetchMeals() {
+        async function sendHttpRequest() {
             setIsFetching(true);
             try {
-                const data = await getMeals(errMsg || "Failed to get data!🍽️", {
+                const response = await fetch(url,{
                     signal: controller.signal,
+                    ...options
                 });
+
+                if(!response.ok){
+                    throw new Error(errMsg || "Something went wrong");
+                }
+
+                const data = response.json();
                 setData(data);
                 setError("");
             } catch (err) {
@@ -27,13 +33,13 @@ export default function useFetch(errMsg,) {
         }
 
         if (data.length === 0) {
-            fetchMeals();
+            sendHttpRequest();
         }
 
         return () => {
             controller.abort();
         };
-    }, [errMsg, data.length]);
+    }, [url,errMsg, data.length,options]);
 
     return { data, isFetching, error, setError }
 }

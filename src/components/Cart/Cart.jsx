@@ -3,24 +3,21 @@ import Modal from "../UI/Modal";
 
 import styles from "./Cart.module.scss";
 import CartItem from "./CartItem.jsx";
-import {useState} from "react";
-import UserDetailsForm from "../UserDetailsForm.jsx";
+import { useUserProgress } from "../../store/UserProgressStore.jsx";
 
 function Cart() {
-	const {
-		isCartOpened,
-		cartData,
-		totalPrice,
-		cartLength,
-		handleCloseCart,
-	} = useRestaurantContext();
+	const { cartData, totalPrice, cartLength } =
+		useRestaurantContext();
 
-	const [formIsActive,setFormIsActive] = useState(false);
+	const { progress, handleCloseProgress, handleOpenCheckout } =
+		useUserProgress();
+
+	console.log(cartData);
+	console.log(progress);
 
 	return (
-		<Modal open={isCartOpened} onClose={handleCloseCart}>
-			{formIsActive && <UserDetailsForm onClose={()=>setFormIsActive(false)} />}
-			{!formIsActive && (<div className={styles.cart}>
+		<Modal open={progress === "cart"} onClose={handleCloseProgress}>
+			<div className={styles.cart}>
 				<h2>
 					Cart<sup>({cartLength})</sup>
 				</h2>
@@ -30,20 +27,27 @@ function Cart() {
 				{cartData.length > 0 && (
 					<ul className={styles.cartList}>
 						{cartData.map((cart) => (
-							<CartItem key={cart.id} {...cart}/>
+							<CartItem key={cart.id} {...cart} />
 						))}
 					</ul>
 				)}
 				<div className={styles.cartPayment}>
 					<h2 className={styles.cartPrice}>{`Total Price: $${totalPrice}`}</h2>
 					<div className={styles.cartCta}>
-						<button onClick={() => handleCloseCart()} className={styles.flat}>
+						<button
+							onClick={() => handleCloseProgress()}
+							className={styles.flat}
+						>
 							Close
 						</button>
-						{cartData.length !== 0 && <button onClick={()=>setFormIsActive(true)}>Go to Checkout</button>}
+						{cartData.length !== 0 && (
+							<button onClick={() => handleOpenCheckout()}>
+								Go to Checkout
+							</button>
+						)}
 					</div>
 				</div>
-			</div>)}
+			</div>
 		</Modal>
 	);
 }

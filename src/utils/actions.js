@@ -4,4 +4,5 @@ export const ACTIONS = Object.freeze({
     updateError: Symbol("update-error"),
     addToCart: Symbol("add-to-cart"),
     updateCartData: Symbol("update-cart-data"),
+    resetCart: Symbol('reset-cart')
 });

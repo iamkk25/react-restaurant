@@ -1,0 +1,8 @@
+.order-summary {
+	padding: 1rem;
+	background-color: antiquewhite;
+
+	> *:not(:last-child) {
+		margin-bottom: 0.5rem;
+	}
+}
